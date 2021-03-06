@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import s from './App.module.css';
-// import users from './contacts.json';
+
 import Filter from './components/Filter';
 import Form from './components/Form';
 import ContactList from './components/ContactList';
