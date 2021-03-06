@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import s from './App.module.css';
-import users from './contacts.json';
+// import users from './contacts.json';
 import Filter from './components/Filter';
 import Form from './components/Form';
 import ContactList from './components/ContactList';
 
 class App extends Component {
   state = {
-    contacts: users,
+    contacts: [],
     filter: '',
   };
 
@@ -39,6 +39,21 @@ class App extends Component {
   changeFilter = evt => {
     this.setState({ filter: evt.currentTarget.value });
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('fuck');
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   render() {
     const normalizedFilter = this.state.filter.toLowerCase();
